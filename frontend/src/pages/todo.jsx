@@ -3,8 +3,10 @@ import api from "../api";
 import { Link,useNavigate } from "react-router-dom";
 
 export default function todo() {
+
     const [todo, setTodo] = useState([]);
     const [text, setText] = useState("");
+
     const nav = useNavigate();
 
 
@@ -46,10 +48,12 @@ export default function todo() {
 
 
     return (
+
         <div className="min-h-screen bg-gray-100 flex justify-center px-4 py-10">
+            
             <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-6">
             
-            {/* Header */}
+            
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">My Todo List</h2>
                 <button
@@ -60,7 +64,7 @@ export default function todo() {
                 </button>
             </div>
 
-            {/* Add Todo */}
+           
             <div className="flex gap-2 mb-6">
                 <input
                 value={text}
@@ -68,12 +72,14 @@ export default function todo() {
                 placeholder="Add a new task..."
                 className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                
                 <button
                 onClick={addTodo}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                 >
                 Add
                 </button>
+                
             </div>
 
             
@@ -102,6 +108,5 @@ export default function todo() {
             </div>
         </div>
     );
-
 
 }

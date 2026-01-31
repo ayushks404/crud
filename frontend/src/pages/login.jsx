@@ -4,14 +4,17 @@ import api from "../api";
 
 
 export default function Login(){
+
     const [form , setForm] = useState({email:"" , password: ""});
-    const navigate = useNavigate();
+    const nav = useNavigate();
     
 
     const submit = async () =>{
+        
         const res = await api.post("/auth/login", form);
         localStorage.setItem("token", res.data.token);
-        navigate("/todo");
+        nav("/todo");
+        
     };
 
     return (
