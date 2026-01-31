@@ -6,6 +6,7 @@ export default function todo() {
 
     const [todo, setTodo] = useState([]);
     const [text, setText] = useState("");
+    const [editId , setEditId] = useState(null);
 
     const nav = useNavigate();
 
@@ -22,12 +23,28 @@ export default function todo() {
 
     },[]);
 
-    const addTodo = async () => {
-        await api.post("/todo", { text }, {
-        });
+    const savet = async () => {
+        if (!text.trim()) return;
+
+        if (editId) {
+            
+            await api.put(`/todo/${editId}`, { text });
+            setEditId(null);
+        } else {
+            
+            await api.post("/todo", { text });
+        }
+
         setText("");
         fetchtodo();
     };
+
+    const startEdit = (t) => {
+        setText(t.text);     
+        setEditId(t._id);    
+    };
+
+
 
     const toggle = async (todo) => {
         await api.put(`/todo/${todo._id}`, { completed: !todo.completed }, {
@@ -74,12 +91,13 @@ export default function todo() {
                 />
                 
                 <button
-                onClick={addTodo}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                >
-                Add
+                    onClick={savet}
+                    className={`${editId ? "bg-yellow-500 hover:bg-yellow-600" : "bg-blue-600 hover:bg-blue-700"} text-white px-4 py-2 rounded-lg`}
+                    >
+                    {editId ? "Update" : "Add"}
                 </button>
-                
+
+
             </div>
 
             
@@ -95,12 +113,23 @@ export default function todo() {
                     >
                     {t.text}
                     </span>
-                    <button
-                    onClick={() => remove(t._id)}
-                    className="text-red-500 hover:text-red-700 text-sm"
-                    >
-                    Remove
-                    </button>
+
+
+                    <div className="flex gap-3">
+                        <button
+                        onClick={() => startEdit(t)}
+                        className="text-blue-500 hover:text-blue-700 text-sm"
+                        >
+                        Edit
+                        </button>
+
+                        <button
+                        onClick={() => remove(t._id)}
+                        className="text-red-500 hover:text-red-700 text-sm"
+                        >
+                        Remove
+                        </button>
+                    </div>
                 </li>
                 ))}
             </ul>
