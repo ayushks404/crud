@@ -17,14 +17,46 @@ export default function register (){
     };
 
     return (
-    <div>
-      <h2>Register</h2>
-      <input placeholder="Name" onChange={e => setForm({ ...form, name: e.target.value })} />
-      <input placeholder="Email" onChange={e => setForm({ ...form, email: e.target.value })} />
-      <input type="password" placeholder="Password" onChange={e => setForm({ ...form, password: e.target.value })} />
-      <button onClick={submit}>Register</button>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
-    </div>
-  );
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+        <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+          <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+
+          <input
+            placeholder="Name"
+            onChange={e => setForm({ ...form, name: e.target.value })}
+            className="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={e => setForm({ ...form, email: e.target.value })}
+            className="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={e => setForm({ ...form, password: e.target.value })}
+            className="w-full mb-6 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            onClick={submit}
+            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            Register
+          </button>
+
+          <p className="text-center mt-4 text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
+      </div>
+    );
+
 
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 export default function todo() {
     const [todo, setTodo] = useState([]);
@@ -44,29 +44,64 @@ export default function todo() {
         nav("/login");
     };
 
-    return (
-        <div>
-            <h2>My Todo List</h2>
-            <button onClick={logout}>Logout</button>
 
-            <div>
-                <input value={text} onChange={e => setText(e.target.value)} placeholder="New task" />
-                <button onClick={addTodo}>Add</button>
+    return (
+        <div className="min-h-screen bg-gray-100 flex justify-center px-4 py-10">
+            <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-6">
+            
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">My Todo List</h2>
+                <button
+                onClick={logout}
+                className="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                >
+                Logout
+                </button>
             </div>
 
-            <ul>
+            {/* Add Todo */}
+            <div className="flex gap-2 mb-6">
+                <input
+                value={text}
+                onChange={e => setText(e.target.value)}
+                placeholder="Add a new task..."
+                className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                onClick={addTodo}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                Add
+                </button>
+            </div>
+
+            
+            <ul className="space-y-3">
                 {Array.isArray(todo) && todo.map(t => (
-                    <li key={t._id}>
-                        <span
-                            onClick={() => toggle(t)}
-                            style={{ textDecoration: t.completed ? "line-through" : "none", cursor: "pointer" }}
-                        >
-                            {t.text}
-                        </span>
-                        <button onClick={() => remove(t._id)}>remove</button>
-                    </li>
+                <li
+                    key={t._id}
+                    className="flex justify-between items-center bg-gray-50 px-4 py-2 rounded-lg border"
+                >
+                    <span
+                    onClick={() => toggle(t)}
+                    className={`cursor-pointer ${t.completed ? "line-through text-gray-400" : ""}`}
+                    >
+                    {t.text}
+                    </span>
+                    <button
+                    onClick={() => remove(t._id)}
+                    className="text-red-500 hover:text-red-700 text-sm"
+                    >
+                    Remove
+                    </button>
+                </li>
                 ))}
             </ul>
+
+            </div>
         </div>
     );
+
+
 }
